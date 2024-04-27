@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YouTubeiOSPlayerHelper
 
 class URLDownloadView: UIView {
     lazy var headingLabel: UILabel = {
@@ -45,8 +46,8 @@ class URLDownloadView: UIView {
         textField.leftView = textFieldSearchIconView
         return textField
     }()
-    lazy var videoView: UIView = {
-        var view = UIView()
+    lazy var videoView: YTPlayerView = {
+        var view = YTPlayerView()
         view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -79,6 +80,10 @@ class URLDownloadView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 20
+        let action = UIAction {[weak self] _ in
+            self?.setupVideo()
+        }
+        button.addAction(action, for: .touchUpInside)
         return button
     }()
     override init(frame: CGRect) {
@@ -87,6 +92,9 @@ class URLDownloadView: UIView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func setupVideo() {
+        videoView.load(withVideoId: "KQhDqBYX1iQ")
     }
     func setupLayout() {
         addSubview(headingLabel)

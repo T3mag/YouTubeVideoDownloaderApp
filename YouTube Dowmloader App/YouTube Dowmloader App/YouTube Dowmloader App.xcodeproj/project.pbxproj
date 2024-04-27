@@ -21,10 +21,17 @@
 		1467D1542BBFFA6C00C6D8EB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1532BBFFA6B00C6D8EB /* TabBarController.swift */; };
 		1467D1582BBFFCE600C6D8EB /* SearchYouTubeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1572BBFFCE600C6D8EB /* SearchYouTubeVC.swift */; };
 		1467D15A2BBFFD0300C6D8EB /* SearchYouTubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1592BBFFD0300C6D8EB /* SearchYouTubeView.swift */; };
-		1467D15C2BBFFD3100C6D8EB /* SearcvYouTubeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D15B2BBFFD3100C6D8EB /* SearcvYouTubeVM.swift */; };
+		1467D15C2BBFFD3100C6D8EB /* SearchYouTubeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D15B2BBFFD3100C6D8EB /* SearchYouTubeVM.swift */; };
 		1467D1622BBFFDCE00C6D8EB /* DownloadsVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1612BBFFDCE00C6D8EB /* DownloadsVideoVC.swift */; };
 		1467D1642BBFFDE100C6D8EB /* DownloadsVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1632BBFFDE100C6D8EB /* DownloadsVideoView.swift */; };
 		1467D1662BBFFDF700C6D8EB /* DownloadsVideoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1467D1652BBFFDF700C6D8EB /* DownloadsVideoVM.swift */; };
+		14F7313A2BD5155E003020C4 /* MyNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F731392BD5155E003020C4 /* MyNetworkManager.swift */; };
+		14F7313C2BD6AC71003020C4 /* YouTubeResponseJsonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7313B2BD6AC71003020C4 /* YouTubeResponseJsonTypes.swift */; };
+		14F731402BD6B71D003020C4 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 14F7313F2BD6B71D003020C4 /* YouTubeiOSPlayerHelper */; };
+		14F731462BD7C4D2003020C4 /* YTVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F731452BD7C4D2003020C4 /* YTVideoCell.swift */; };
+		14F731492BD7D5F7003020C4 /* SearchYouTubeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F731482BD7D5F7003020C4 /* SearchYouTubeDataSource.swift */; };
+		14F7314C2BDA5C3E003020C4 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7314B2BDA5C3E003020C4 /* ButtonCell.swift */; };
+		14F7314F2BDCFB72003020C4 /* NoneVideoInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7314E2BDCFB72003020C4 /* NoneVideoInfoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +70,16 @@
 		1467D1532BBFFA6B00C6D8EB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1467D1572BBFFCE600C6D8EB /* SearchYouTubeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchYouTubeVC.swift; sourceTree = "<group>"; };
 		1467D1592BBFFD0300C6D8EB /* SearchYouTubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchYouTubeView.swift; sourceTree = "<group>"; };
-		1467D15B2BBFFD3100C6D8EB /* SearcvYouTubeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearcvYouTubeVM.swift; sourceTree = "<group>"; };
+		1467D15B2BBFFD3100C6D8EB /* SearchYouTubeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchYouTubeVM.swift; sourceTree = "<group>"; };
 		1467D1612BBFFDCE00C6D8EB /* DownloadsVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsVideoVC.swift; sourceTree = "<group>"; };
 		1467D1632BBFFDE100C6D8EB /* DownloadsVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsVideoView.swift; sourceTree = "<group>"; };
 		1467D1652BBFFDF700C6D8EB /* DownloadsVideoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsVideoVM.swift; sourceTree = "<group>"; };
+		14F731392BD5155E003020C4 /* MyNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetworkManager.swift; sourceTree = "<group>"; };
+		14F7313B2BD6AC71003020C4 /* YouTubeResponseJsonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeResponseJsonTypes.swift; sourceTree = "<group>"; };
+		14F731452BD7C4D2003020C4 /* YTVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTVideoCell.swift; sourceTree = "<group>"; };
+		14F731482BD7D5F7003020C4 /* SearchYouTubeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchYouTubeDataSource.swift; sourceTree = "<group>"; };
+		14F7314B2BDA5C3E003020C4 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		14F7314E2BDCFB72003020C4 /* NoneVideoInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneVideoInfoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14F731402BD6B71D003020C4 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +177,8 @@
 		1467D1472BBD6F8A00C6D8EB /* Solutions */ = {
 			isa = PBXGroup;
 			children = (
-				1467D1512BBD955600C6D8EB /* General */,
+				14F7314D2BDCE8C7003020C4 /* VideoScreen */,
+				1467D1512BBD955600C6D8EB /* Model */,
 				1467D14C2BBD706400C6D8EB /* Settings Screen */,
 				1467D14B2BBD704D00C6D8EB /* Downloads Video Screen */,
 				1467D14A2BBD702C00C6D8EB /* Search Youtube Screen */,
@@ -185,9 +200,11 @@
 		1467D14A2BBD702C00C6D8EB /* Search Youtube Screen */ = {
 			isa = PBXGroup;
 			children = (
+				14F7314A2BDA5BD3003020C4 /* Cells */,
 				1467D1572BBFFCE600C6D8EB /* SearchYouTubeVC.swift */,
 				1467D1592BBFFD0300C6D8EB /* SearchYouTubeView.swift */,
-				1467D15B2BBFFD3100C6D8EB /* SearcvYouTubeVM.swift */,
+				1467D15B2BBFFD3100C6D8EB /* SearchYouTubeVM.swift */,
+				14F731482BD7D5F7003020C4 /* SearchYouTubeDataSource.swift */,
 			);
 			path = "Search Youtube Screen";
 			sourceTree = "<group>";
@@ -209,13 +226,32 @@
 			path = "Settings Screen";
 			sourceTree = "<group>";
 		};
-		1467D1512BBD955600C6D8EB /* General */ = {
+		1467D1512BBD955600C6D8EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				140774942BBC007D0040642B /* YouTube_Dowmloader_App.xcdatamodeld */,
 				1467D1532BBFFA6B00C6D8EB /* TabBarController.swift */,
+				14F731392BD5155E003020C4 /* MyNetworkManager.swift */,
+				14F7313B2BD6AC71003020C4 /* YouTubeResponseJsonTypes.swift */,
 			);
-			path = General;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		14F7314A2BDA5BD3003020C4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				14F731452BD7C4D2003020C4 /* YTVideoCell.swift */,
+				14F7314B2BDA5C3E003020C4 /* ButtonCell.swift */,
+				14F7314E2BDCFB72003020C4 /* NoneVideoInfoCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		14F7314D2BDCE8C7003020C4 /* VideoScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VideoScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +272,7 @@
 			);
 			name = "YouTube Dowmloader App";
 			packageProductDependencies = (
+				14F7313F2BD6B71D003020C4 /* YouTubeiOSPlayerHelper */,
 			);
 			productName = "YouTube Dowmloader App";
 			productReference = 140774882BBC007D0040642B /* YouTube Dowmloader App.app */;
@@ -311,6 +348,7 @@
 			mainGroup = 1407747F2BBC007D0040642B;
 			packageReferences = (
 				140774BE2BBC00D00040642B /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				14F7313E2BD6B71D003020C4 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 			);
 			productRefGroup = 140774892BBC007D0040642B /* Products */;
 			projectDirPath = "";
@@ -356,15 +394,21 @@
 			files = (
 				140774902BBC007D0040642B /* URLDownloadVC.swift in Sources */,
 				1467D15A2BBFFD0300C6D8EB /* SearchYouTubeView.swift in Sources */,
-				1467D15C2BBFFD3100C6D8EB /* SearcvYouTubeVM.swift in Sources */,
+				1467D15C2BBFFD3100C6D8EB /* SearchYouTubeVM.swift in Sources */,
 				1467D14E2BBD94E900C6D8EB /* URLDownloadView.swift in Sources */,
 				1467D1502BBD950E00C6D8EB /* URLDownloadVM.swift in Sources */,
+				14F7314F2BDCFB72003020C4 /* NoneVideoInfoCell.swift in Sources */,
+				14F731492BD7D5F7003020C4 /* SearchYouTubeDataSource.swift in Sources */,
 				140774962BBC007D0040642B /* YouTube_Dowmloader_App.xcdatamodeld in Sources */,
 				1467D1582BBFFCE600C6D8EB /* SearchYouTubeVC.swift in Sources */,
 				1467D1542BBFFA6C00C6D8EB /* TabBarController.swift in Sources */,
 				1467D1662BBFFDF700C6D8EB /* DownloadsVideoVM.swift in Sources */,
+				14F7313C2BD6AC71003020C4 /* YouTubeResponseJsonTypes.swift in Sources */,
+				14F7314C2BDA5C3E003020C4 /* ButtonCell.swift in Sources */,
 				1467D1642BBFFDE100C6D8EB /* DownloadsVideoView.swift in Sources */,
+				14F7313A2BD5155E003020C4 /* MyNetworkManager.swift in Sources */,
 				1407748C2BBC007D0040642B /* AppDelegate.swift in Sources */,
+				14F731462BD7C4D2003020C4 /* YTVideoCell.swift in Sources */,
 				1407748E2BBC007D0040642B /* SceneDelegate.swift in Sources */,
 				1467D1622BBFFDCE00C6D8EB /* DownloadsVideoVC.swift in Sources */,
 			);
@@ -711,6 +755,14 @@
 				minimumVersion = 0.54.0;
 			};
 		};
+		14F7313E2BD6B71D003020C4 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -718,6 +770,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 140774BE2BBC00D00040642B /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintPlugin";
+		};
+		14F7313F2BD6B71D003020C4 /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14F7313E2BD6B71D003020C4 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
 		};
 /* End XCSwiftPackageProductDependency section */
 

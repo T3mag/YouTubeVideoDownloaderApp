@@ -14,7 +14,6 @@ class DownloadsVideoVC: UIViewController {
         self.view.backgroundColor = .black
         setupNavBar()
     }
-    
     func setupNavBar() {
         let rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "gear"),
