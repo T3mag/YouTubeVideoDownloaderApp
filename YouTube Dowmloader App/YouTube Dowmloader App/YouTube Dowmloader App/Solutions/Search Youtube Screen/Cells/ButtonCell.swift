@@ -8,6 +8,8 @@
 import UIKit
 
 class ButtonCell: UITableViewCell {
+    var nextPageToken: String!
+    weak var delegate: AddNewVideo?
     lazy var addVideoButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
@@ -16,7 +18,7 @@ class ButtonCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 20
         let action = UIAction {[weak self] _ in
-            print("Обновил")
+            self!.delegate?.addDataWithUserString(nextPageToken: self!.nextPageToken)
         }
         button.addAction(action, for: .touchUpInside)
         return button
@@ -27,6 +29,9 @@ class ButtonCell: UITableViewCell {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func setupCell(nextPageToken: String) {
+        self.nextPageToken = nextPageToken
     }
     func setupLayout() {
         contentView.addSubview(addVideoButton)

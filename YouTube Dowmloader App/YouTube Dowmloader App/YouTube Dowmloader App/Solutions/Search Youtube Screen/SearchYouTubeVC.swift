@@ -10,13 +10,15 @@ import Combine
 
 class SearchYouTubeVC: UIViewController {
     private let searchYouTubeView = SearchYouTubeView(frame: .zero)
-    private var searchYouTubeVideoVM: SearchYouTubeVM!
+    private var viewModel: SearchYouTubeVM!
     private var searchYouTubeVideoTableViewDataSource: SearchYouTubeDataSource!
     private var cancelebels: Set<AnyCancellable> = []
-    @Published var videos: [VideoInfo.Video] = []
+    private var timer = Timer()
+    @Published var videos: [VideoInfoFromSearch.Video] = []
+    @Published var isSearching: Bool = false
     init(searchScreenViewModel: SearchYouTubeVM) {
         super.init(nibName: nil, bundle: nil)
-        searchYouTubeVideoVM = searchScreenViewModel
+        viewModel = searchScreenViewModel
         searchYouTubeVideoTableViewDataSource = SearchYouTubeDataSource(searchYouTubeVideVC: self)
         searchYouTubeView.setupDataSource(dataSource: searchYouTubeVideoTableViewDataSource)
         setupBindings()
@@ -32,6 +34,12 @@ class SearchYouTubeVC: UIViewController {
     }
     override func loadView() {
         view = searchYouTubeView
+    }
+    func presentVideoInfoScreen(indexPath: IndexPath) {
+        let videoInfoViewModel = VideoScreenViewModel()
+        let videoViewViewController = VideoScreenViewController(viewModel: videoInfoViewModel, indexPath: indexPath)
+        videoViewViewController.modalPresentationStyle = .overFullScreen
+        navigationController!.present(videoViewViewController, animated: true)
     }
 }
 
@@ -55,22 +63,66 @@ extension SearchYouTubeVC {
     @objc func fbButtonPressed() {
         print("Share to fb")
     }
-    func obtainDataWithUserString(userString: String) {
-        searchYouTubeVideoVM.obtainDataWithUserString(userString: userString)
-        _ = Timer.scheduledTimer(timeInterval: 2.0,
-                                     target: self,
-                                     selector: #selector(updateTimer),
-                                     userInfo: nil,
-                                     repeats: false)
+    func obtainNewDataWithUserString(userString: String) {
+        var timerLeft = 30
+        isSearching = true
+        searchYouTubeView.reloadData()
+        viewModel.obtainNewDataWithUserString(userString: userString)
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            timerLeft = -1
+            if self?.viewModel.getCountVideos() != 0 {
+                self?.isSearching = false
+                self?.searchYouTubeView.reloadData()
+                self?.timer.invalidate()
+            }
+            if timerLeft == 0 {
+                self?.isSearching = false
+                self?.searchYouTubeView.reloadData()
+                self?.timer.invalidate()
+            }
+        }
+    }
+    func addDataWithUserString(nextPageToken: String) {
+        var timerLeft = 30
+        isSearching = true
+        searchYouTubeView.reloadData()
+        viewModel.addDataWithUserString(nextPageToken: nextPageToken)
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            timerLeft = -1
+            if self?.viewModel.getCountVideos() != 0 {
+                self?.isSearching = false
+                self?.searchYouTubeView.reloadData()
+                self?.timer.invalidate()
+                self?.scrollTableView()
+            }
+            if timerLeft == 0 {
+                self?.isSearching = false
+                self?.searchYouTubeView.reloadData()
+                self?.timer.invalidate()
+            }
+        }
+    }
+    func scrollTableView() {
+        searchYouTubeView.scrollFromindexPath(indexPath: searchYouTubeVideoTableViewDataSource.getIndexPath())
     }
     func obtainImageForUrl(imageUrl: URL) -> UIImage {
-        return searchYouTubeVideoVM.obtainImageForUrl(imageUrl: imageUrl)
+        return viewModel.obtainImageForUrl(imageUrl: imageUrl)
+    }
+    func getNextPageToken() -> String {
+        return viewModel.getNextPageToken()
+    }
+    func scrollFromIndexPath(indexPath: IndexPath) {
+        searchYouTubeView.scrollFromindexPath(indexPath: indexPath)
     }
     @objc func updateTimer() {
-        searchYouTubeView.reloadData()
+        print(viewModel.getCountVideos())
+        if viewModel.getCountVideos() != 0 {
+            timer.invalidate()
+            searchYouTubeView.reloadData()
+        }
     }
     func setupBindings() {
-        searchYouTubeVideoVM.$videos
+        viewModel.$videos
             .sink { [weak self] videos in
                 self?.videos = videos
             }

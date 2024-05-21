@@ -8,13 +8,15 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    var uRLDownloadsVC: URLDownloadVC!
-    var searchYouTubeVC: SearchYouTubeVC!
-    var downloadsVideoVC: DownloadsVideoVC!
-    var searchYouTubeVM = SearchYouTubeVM()
+    static var shared = TabBarController()
+    private var uRLDownloadsVC: URLDownloadVC!
+    private var searchYouTubeVC: SearchYouTubeVC!
+    private var downloadsVideoVC: DownloadsVideoVC!
+    private var URLDownloadVideoVM = URLDownloadViewModel()
+    private var searchYouTubeVM = SearchYouTubeVM()
     init() {
         super.init(nibName: nil, bundle: nil)
-        uRLDownloadsVC = URLDownloadVC()
+        uRLDownloadsVC = URLDownloadVC(viewModel: URLDownloadVideoVM)
         searchYouTubeVC = SearchYouTubeVC(searchScreenViewModel: searchYouTubeVM)
         downloadsVideoVC = DownloadsVideoVC()
         setupTabBar()
@@ -36,5 +38,8 @@ class TabBarController: UITabBarController {
             UINavigationController(rootViewController: searchYouTubeVC),
             UINavigationController(rootViewController: downloadsVideoVC)
         ]
+    }
+    func setupURLDownloadVC(videoID: String, videoTitle: String) {
+        uRLDownloadsVC.setupYouTubeData(videoID: videoID, videoTitle: videoTitle)
     }
 }

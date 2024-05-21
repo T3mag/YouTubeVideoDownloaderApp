@@ -13,7 +13,6 @@ class YTVideoCell: UITableViewCell {
         let videoPlayer = UIImageView()
         videoPlayer.backgroundColor = .black
         videoPlayer.translatesAutoresizingMaskIntoConstraints = false
-        videoPlayer.layer.cornerRadius = 20
         return videoPlayer
     }()
     lazy var videoTitleLabel: UILabel = {
@@ -54,7 +53,7 @@ class YTVideoCell: UITableViewCell {
         load(url: videoImageURl)
         videoTitleLabel.text = videoTitle
         chanellTitleLabel.text = chanellTitle
-        var date = videDate.components(separatedBy: "T")
+        let date = videDate.components(separatedBy: "T")
         videoDateLabel.text = date[0].replacingOccurrences(of: "-", with: ":")
     }
     func setupLayout() {
@@ -68,24 +67,24 @@ class YTVideoCell: UITableViewCell {
             videoPlayerImageView.heightAnchor.constraint(equalToConstant: (self.frame.width - 20) / 16 * 10),
             videoPlayerImageView.topAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            videoPlayerImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
-            videoPlayerImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            videoPlayerImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            videoPlayerImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             videoTitleLabel.topAnchor.constraint(
                 equalTo: videoPlayerImageView.bottomAnchor, constant: 10),
             videoTitleLabel.leadingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
+                equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             videoTitleLabel.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
+                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             chanellTitleLabel.topAnchor.constraint(
-                equalTo: videoTitleLabel.bottomAnchor, constant: 5),
+                equalTo: videoTitleLabel.bottomAnchor, constant: 10),
             chanellTitleLabel.leadingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
+                equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             chanellTitleLabel.bottomAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             videoDateLabel.topAnchor.constraint(
-                equalTo: videoTitleLabel.bottomAnchor, constant: 5),
+                equalTo: videoTitleLabel.bottomAnchor, constant: 10),
             videoDateLabel.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5)
+                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
     required init?(coder: NSCoder) {
@@ -102,4 +101,9 @@ class YTVideoCell: UITableViewCell {
                 }
             }
         }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    }
 }

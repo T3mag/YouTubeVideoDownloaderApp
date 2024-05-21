@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct VideoInfo: Codable {
-    let kind: String
-    let etag: String
-    let nextPageToken: String
-    let regionCode: String
+struct VideoInfoFromSearch: Codable {
+    let kind: String?
+    let etag: String?
+    let nextPageToken: String?
+    let regionCode: String?
     let pageInfo: PageInfo
     let items: [Video]
     struct Thumbnails: Codable {
@@ -46,5 +46,25 @@ struct VideoInfo: Codable {
         let etag: String
         let id: VideoId
         let snippet: Snippet
+    }
+}
+
+struct VideoInfoFromIdentifier: Codable {
+    let items: [VideoInfo]
+    struct VideoInfo: Codable {
+        let id: String
+        let snippet: Snippet
+    }
+    struct Snippet: Codable {
+        let publishedAt: String
+        let channelId: String
+        let title: String
+        let description: String
+        let channelTitle: String
+        let localized: Localized
+    }
+    struct Localized: Codable {
+        let title: String
+        let description: String
     }
 }

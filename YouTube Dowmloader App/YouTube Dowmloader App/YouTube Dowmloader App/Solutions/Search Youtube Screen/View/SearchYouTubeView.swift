@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddNewVideo: AnyObject {
+    func addDataWithUserString(nextPageToken: String)
+}
+
 class SearchYouTubeView: UIView {
     var viewController: SearchYouTubeVC!
     lazy var searchTextField: UITextField = {
@@ -43,7 +47,9 @@ class SearchYouTubeView: UIView {
                            forCellReuseIdentifier: "buttonTableViewCell")
         tableView.register(NoneVideoInfoCell.self,
                            forCellReuseIdentifier: "noneVideoTableViewCell")
-        tableView.backgroundColor = .black
+        tableView.register(IsSearchingCell.self,
+                           forCellReuseIdentifier: "isSearchingTableViewCell")
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.separatorColor = UIColor(red: 146/255,
                                            green: 146/255,
@@ -100,16 +106,24 @@ class SearchYouTubeView: UIView {
     func reloadData() {
         searchVideosTablewView.reloadData()
     }
+    func scrollFromindexPath(indexPath: IndexPath) {
+        searchVideosTablewView.scrollToRow(at: indexPath, at: .middle, animated: true)
+    }
     func setupDataSource(dataSource: SearchYouTubeDataSource) {
         searchVideosTablewView.delegate = dataSource
         searchVideosTablewView.dataSource = dataSource
+    }
+}
+extension SearchYouTubeView: AddNewVideo {
+    func addDataWithUserString(nextPageToken: String) {
+        viewController.addDataWithUserString(nextPageToken: nextPageToken)
     }
 }
 
 extension SearchYouTubeView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text != nil {
-            viewController.obtainDataWithUserString(userString: textField.text!)
+            viewController.obtainNewDataWithUserString(userString: textField.text!)
         }
         return true
     }

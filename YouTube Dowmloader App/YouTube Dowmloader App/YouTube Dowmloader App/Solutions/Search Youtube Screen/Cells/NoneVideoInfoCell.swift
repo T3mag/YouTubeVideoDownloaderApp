@@ -13,7 +13,10 @@ class NoneVideoInfoCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 5
         label.textColor = .white
-        label.text = "Увы, видео пока нет, прости. Введи свой запрос или исправь его в поле сверху. Также не забудь проверить интернет соединение :)"
+        let oneStr = "Увы, видео пока нет, прости. "
+        let twoStr = "Введи свой запрос или исправь его в поле сверху."
+        let threeStr = "Также не забудь проверить интернет соединение :)"
+        label.text = oneStr + twoStr + threeStr
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textAlignment = .center
         return label
@@ -26,6 +29,7 @@ class NoneVideoInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     func setupLayout() {
+        backgroundColor = .blue
         addSubview(infoLabel)
         backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
         layer.cornerRadius = 20
