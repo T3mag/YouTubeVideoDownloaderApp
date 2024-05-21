@@ -8,11 +8,23 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    var uRLDownloadsVC = URLDownloadVC()
-    var searchYouTubeVC = SearchYouTubeVC()
-    var downloadsVideoVC = DownloadsVideoVC()
+    static var shared = TabBarController()
+    private var uRLDownloadsVC: URLDownloadVC!
+    private var searchYouTubeVC: SearchYouTubeVC!
+    private var downloadsVideoVC: DownloadsVideoVC!
+    private var URLDownloadVideoVM = URLDownloadViewModel()
+    private var searchYouTubeVM = SearchYouTubeVM()
     init() {
         super.init(nibName: nil, bundle: nil)
+        uRLDownloadsVC = URLDownloadVC(viewModel: URLDownloadVideoVM)
+        searchYouTubeVC = SearchYouTubeVC(searchScreenViewModel: searchYouTubeVM)
+        downloadsVideoVC = DownloadsVideoVC()
+        setupTabBar()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func setupTabBar() {
         uRLDownloadsVC.tabBarItem.title = "Скачать по URL"
         uRLDownloadsVC.tabBarItem.image = UIImage(systemName: "arrow.down.circle")
         searchYouTubeVC.tabBarItem.title = "Поиск по видео"
@@ -27,7 +39,7 @@ class TabBarController: UITabBarController {
             UINavigationController(rootViewController: downloadsVideoVC)
         ]
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setupURLDownloadVC(videoID: String, videoTitle: String) {
+        uRLDownloadsVC.setupYouTubeData(videoID: videoID, videoTitle: videoTitle)
     }
 }
