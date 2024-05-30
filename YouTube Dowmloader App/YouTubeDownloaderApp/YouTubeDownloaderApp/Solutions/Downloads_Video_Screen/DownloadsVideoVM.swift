@@ -23,6 +23,5 @@ class DownloadsVideoVM {
         fileManager.removeImageFromDirectory(imageName: video.videoTitle)
         fileManager.removeVideoFromDirectory(videoName: video.videoTitle)
         coreDataManager.deleteVideoInfo(videoID: video.videoId)
-        
     }
 }

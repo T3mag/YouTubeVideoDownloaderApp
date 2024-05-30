@@ -4,6 +4,7 @@ class URLDownloadVC: UIViewController {
     private let myView = URLDownloadView(frame: .zero)
     private var viewModel: URLDownloadViewModel?
     private var timer: Timer = Timer()
+    private var settingsVC: SettingsViewController?
     init(viewModel: URLDownloadViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -25,13 +26,12 @@ class URLDownloadVC: UIViewController {
             image: UIImage(systemName: "gear"),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(fbButtonPressed)
         )
         rightBarButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = rightBarButtonItem
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "YouTubeDownloaderlogo"), for: .normal)
-        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButton
@@ -78,6 +78,17 @@ class URLDownloadVC: UIViewController {
                                  videoPreviewUrl: videoPreviewURL)
     }
     @objc func fbButtonPressed() {
-        print("Share to fb")
+        present(SettingsViewController.shared, animated: true)
+    }
+    func setSetinngsVC(settingsVC: SettingsViewController) {
+        self.settingsVC = settingsVC
+    }
+    func setupTheme(isBlack: Bool) {
+        myView.setupTheme(isBlack: isBlack)
+        if isBlack {
+            navigationItem.rightBarButtonItem?.tintColor = .white
+        } else {
+            navigationItem.rightBarButtonItem?.tintColor = .black
+        }
     }
 }

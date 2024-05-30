@@ -13,6 +13,7 @@ class DownloadsVideoVC: UIViewController {
     private var viewModel: DownloadsVideoVM!
     private var cancelebels: Set<AnyCancellable> = []
     private var dataSource: DownloadsVideoDataSource!
+    private var settingsVC: SettingsViewController?
     @Published var videos: [Video] = []
     init(downloadsVideoViewModel: DownloadsVideoVM) {
         super.init(nibName: nil, bundle: nil)
@@ -48,23 +49,35 @@ class DownloadsVideoVC: UIViewController {
             image: UIImage(systemName: "gear"),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(fbButtonPressed)
         )
         rightBarButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = rightBarButtonItem
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "YouTubeDownloaderlogo"), for: .normal)
-        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButton
     }
     @objc func fbButtonPressed() {
-        print("Share to fb")
+        present(SettingsViewController.shared, animated: true)
     }
     func deleteVideo(indexPath: IndexPath) {
         viewModel.deleteVideosFromDevice(indexPath: indexPath)
         viewModel.updateData()
+        myView.reloadTableView()
+    }
+    func setSetinngsVC(settingsVC: SettingsViewController) {
+        self.settingsVC = settingsVC
+    }
+    func setupTheme(isBlack: Bool) {
+        if isBlack {
+            navigationItem.rightBarButtonItem?.tintColor = .white
+        } else {
+            navigationItem.rightBarButtonItem?.tintColor = .black
+        }
+        myView.setupTheme(isBlack: isBlack)
+        dataSource.setIsBlack(isBlack: isBlack)
         myView.reloadTableView()
     }
 }

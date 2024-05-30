@@ -215,6 +215,24 @@ class URLDownloadView: UIView {
             self.downloadButton.setTitle(title, for: .normal)
         }
     }
+    func setupTheme(isBlack: Bool) {
+        if isBlack {
+            headingLabel.textColor = .white
+            subtitleLabel.textColor = .white
+            videoTextLabel.textColor = .white
+            errorLabel.textColor = .white
+            backgroundColor = .black
+            loadingSpinerView.setupColor(isBlack: isBlack)
+        } else {
+            headingLabel.textColor = .black
+            subtitleLabel.textColor = .black
+            videoTextLabel.textColor = .black
+            errorLabel.textColor = .black
+            backgroundColor = .white
+            loadingSpinerView.setupColor(isBlack: isBlack)
+        }
+        self.reloadInputViews()
+    }
 }
 
 extension URLDownloadView: UITextFieldDelegate {

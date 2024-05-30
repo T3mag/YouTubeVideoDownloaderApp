@@ -90,7 +90,7 @@ class VideoScreenView: UIView {
         _ = date.components(separatedBy: ":")
         videoDateLabel.text = date
         videoDescriptionLabel.text = videoInfo.items[0].snippet.description
-        chanelTitleLabel.text = videoInfo.items[0].snippet.channelTitle
+        chanelTitleLabel.text = "Канал: \(videoInfo.items[0].snippet.channelTitle)"
         self.reloadInputViews()
         self.videoID = videoInfo.items[0].id
     }
@@ -163,6 +163,21 @@ class VideoScreenView: UIView {
                                                videoTitle: videoTitleLabel.text!,
                                                videoDate: videoDateLabel.text!,
                                                videoPreviewUrl: videoPreviewURL!)
+    }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            backgroundColor = .black
+            videoTitleLabel.textColor = .white
+            videoDateLabel.textColor = .white
+            chanelTitleLabel.textColor = .white
+            videoDescriptionLabel.textColor = .white
+        } else {
+            backgroundColor = .white
+            videoTitleLabel.textColor = .black
+            videoDateLabel.textColor = .black
+            chanelTitleLabel.textColor = .black
+            videoDescriptionLabel.textColor = .black
+        }
     }
 }
 

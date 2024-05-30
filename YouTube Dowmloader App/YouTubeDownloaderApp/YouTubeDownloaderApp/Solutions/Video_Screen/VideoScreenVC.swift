@@ -33,11 +33,17 @@ class VideoScreenViewController: UIViewController {
         viewModel.obtainVideoInfoById(indexPath: indexPath)
     }
     func downloadButtonTap(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
-        viewModel.downloadButtonTap(videoID: videoID, videoTitle: videoTitle, videoDate: videoDate, videoPreviewUrl: videoPreviewUrl)
+        viewModel.downloadButtonTap(videoID: videoID,
+                                    videoTitle: videoTitle,
+                                    videoDate: videoDate,
+                                    videoPreviewUrl: videoPreviewUrl)
         dismiss(animated: true)
     }
     @objc func updateTimer() {
         myView.setupVideoInfo(videoInfo: viewModel.getVideoInfo(),
                               videoPreviewUrl: videoPreviewUrl!)
+    }
+    func setupTheme(isBlack: Bool) {
+        myView.setupColor(isBlack: isBlack)
     }
 }

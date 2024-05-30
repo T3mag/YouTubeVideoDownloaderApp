@@ -15,6 +15,7 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
     private var cancelebels: Set<AnyCancellable> = []
     private var isSearching: Bool = false
     private var indexPath: IndexPath?
+    private var isBlack = true
     init(searchYouTubeVideVC: SearchYouTubeVC) {
         super.init()
         self.viewController = searchYouTubeVideVC
@@ -28,6 +29,9 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
                 self?.isSearching = isSearching
             }
             .store(in: &cancelebels)
+    }
+    func setupIsBlack(isBlack: Bool) {
+        self.isBlack = isBlack
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
@@ -51,6 +55,10 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
         guard let noneVideoCell = tableView.dequeueReusableCell(
             withIdentifier: "noneVideoTableViewCell",
             for: indexPath) as? NoneVideoInfoCell else { fatalError() }
+        isSearchinfCell.setupColor(isBlack: isBlack)
+        videoCell.setupColor(isBlack: isBlack)
+        buttonCell.setupColor(isBlack: isBlack)
+        noneVideoCell.setupColor(isBlack: isBlack)
         if isSearching && videos.count <= 1 {
             isSearchinfCell.activateSpiner()
             return isSearchinfCell

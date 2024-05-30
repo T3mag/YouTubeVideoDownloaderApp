@@ -32,6 +32,9 @@ class VideoScreenViewModel {
     }
     func downloadButtonTap(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
         mainTabBarController.selectedIndex = 0
-        mainTabBarController.setupURLDownloadVC(videoID: videoID, videoTitle: videoTitle, videoDate: videoDate, videoPreviewUrl: videoPreviewUrl)
+        mainTabBarController.setupURLDownloadVC(videoID: videoID,
+                                                videoTitle: videoTitle,
+                                                videoDate: videoDate,
+                                                videoPreviewUrl: videoPreviewUrl)
     }
 }

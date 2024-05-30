@@ -29,9 +29,8 @@ class NoneVideoInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     func setupLayout() {
-        backgroundColor = .blue
+        backgroundColor = .clear
         addSubview(infoLabel)
-        backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
         layer.cornerRadius = 20
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(
@@ -43,5 +42,12 @@ class NoneVideoInfoCell: UITableViewCell {
             infoLabel.bottomAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
+    }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            infoLabel.textColor = .white
+        } else {
+            infoLabel.textColor = .black
+        }
     }
 }

@@ -15,6 +15,7 @@ class TabBarController: UITabBarController {
     private var URLDownloadVideoVM = URLDownloadViewModel()
     private var searchYouTubeVM = SearchYouTubeVM()
     private var downloadsVideoVM = DownloadsVideoVM()
+    private var isBlack = false
     init() {
         super.init(nibName: nil, bundle: nil)
         uRLDownloadsVC = URLDownloadVC(viewModel: URLDownloadVideoVM)
@@ -33,7 +34,7 @@ class TabBarController: UITabBarController {
         downloadsVideoVC.tabBarItem.title = "Ваши видео"
         downloadsVideoVC.tabBarItem.image = UIImage(systemName: "folder")
         self.tabBar.tintColor = .white
-        self.tabBar.backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
+        self.tabBar.backgroundColor = .clear
         self.viewControllers = [
             UINavigationController(rootViewController: uRLDownloadsVC),
             UINavigationController(rootViewController: searchYouTubeVC),
@@ -48,5 +49,19 @@ class TabBarController: UITabBarController {
     }
     func setupButtonTitle(title: String) {
         uRLDownloadsVC.setupButtonTitle(title: title)
+    }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            self.tabBar.tintColor = .white
+        } else {
+            self.tabBar.tintColor = .black
+        }
+        var counter = 0
+        while counter < 3 {
+            downloadsVideoVC.setupTheme(isBlack: isBlack)
+            uRLDownloadsVC.setupTheme(isBlack: isBlack)
+            searchYouTubeVC.setupTheme(isBlack: isBlack)
+            counter += 1
+        }
     }
 }

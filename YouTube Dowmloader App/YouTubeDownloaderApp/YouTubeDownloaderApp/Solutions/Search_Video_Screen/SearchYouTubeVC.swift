@@ -14,6 +14,8 @@ class SearchYouTubeVC: UIViewController {
     private var searchYouTubeVideoTableViewDataSource: SearchYouTubeDataSource!
     private var cancelebels: Set<AnyCancellable> = []
     private var timer = Timer()
+    private var settingsVC: SettingsViewController?
+    private var isBlack = true
     @Published var videos: [VideoInfoFromSearch.Video] = []
     @Published var isSearching: Bool = false
     init(searchScreenViewModel: SearchYouTubeVM) {
@@ -37,9 +39,12 @@ class SearchYouTubeVC: UIViewController {
     }
     func presentVideoInfoScreen(indexPath: IndexPath, videoPreViewURL: String) {
         let videoInfoViewModel = VideoScreenViewModel()
-        let videoViewViewController = VideoScreenViewController(viewModel: videoInfoViewModel, indexPath: indexPath, videoPrevieePath: videoPreViewURL)
+        let videoViewViewController = VideoScreenViewController(viewModel: videoInfoViewModel,
+                                                                indexPath: indexPath,
+                                                                videoPrevieePath: videoPreViewURL)
         videoViewViewController.modalPresentationStyle = .overFullScreen
-        navigationController!.present(videoViewViewController, animated: true)
+        videoViewViewController.setupTheme(isBlack: isBlack)
+        present(videoViewViewController, animated: true)
     }
 }
 
@@ -49,19 +54,18 @@ extension SearchYouTubeVC {
             image: UIImage(systemName: "gear"),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(fbButtonPressed)
         )
         rightBarButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = rightBarButtonItem
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "YouTubeDownloaderlogo"), for: .normal)
-        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButton
     }
     @objc func fbButtonPressed() {
-        print("Share to fb")
+        present(SettingsViewController.shared, animated: true)
     }
     func obtainNewDataWithUserString(userString: String) {
         var timerLeft = 30
@@ -115,7 +119,6 @@ extension SearchYouTubeVC {
         searchYouTubeView.scrollFromindexPath(indexPath: indexPath)
     }
     @objc func updateTimer() {
-        print(viewModel.getCountVideos())
         if viewModel.getCountVideos() != 0 {
             timer.invalidate()
             searchYouTubeView.reloadData()
@@ -127,5 +130,19 @@ extension SearchYouTubeVC {
                 self?.videos = videos
             }
             .store(in: &cancelebels)
+    }
+    func setSetinngsVC(settingsVC: SettingsViewController) {
+        self.settingsVC = settingsVC
+    }
+    func setupTheme(isBlack: Bool) {
+        self.isBlack = isBlack
+        if isBlack {
+            navigationItem.rightBarButtonItem?.tintColor = .white
+        } else {
+            navigationItem.rightBarButtonItem?.tintColor = .black
+        }
+        searchYouTubeView.setupTheme(isBlack: isBlack)
+        searchYouTubeVideoTableViewDataSource.setupIsBlack(isBlack: isBlack)
+        searchYouTubeView.reloadData()
     }
 }

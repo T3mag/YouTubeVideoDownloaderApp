@@ -37,6 +37,15 @@ class VideoCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            videoTitleLabel.textColor = .white
+            videoDateLabel.textColor = .white
+        } else {
+            videoDateLabel.textColor = .black
+            videoTitleLabel.textColor = .black
+        }
+    }
     func setupVideoInfo(videoInfo: Video) {
         self.videoInfo = videoInfo
         videoTitleLabel.text = videoInfo.videoTitle

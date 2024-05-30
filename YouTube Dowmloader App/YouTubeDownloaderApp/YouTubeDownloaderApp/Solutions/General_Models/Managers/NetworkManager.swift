@@ -12,7 +12,7 @@ import Combine
 class MyNetworkManager {
     static let shared = MyNetworkManager(with: .default)
     private let session: URLSession
-    private let apiKey = "AIzaSyDXllDForKBBeMbgP73vnStV_cCINtF3OU"
+    private let apiKey = "AIzaSyB_toFoqCkMASgYn1Ri5bieWn4K_3MuLng"
     private var imageForDownload = UIImage()
     private var userRequestString: String?
     private var nextPageToken: String?

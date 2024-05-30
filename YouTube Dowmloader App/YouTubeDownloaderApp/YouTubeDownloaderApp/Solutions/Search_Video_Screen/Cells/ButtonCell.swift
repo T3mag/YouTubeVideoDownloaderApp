@@ -35,7 +35,7 @@ class ButtonCell: UITableViewCell {
     }
     func setupLayout() {
         contentView.addSubview(addVideoButton)
-        backgroundColor = .black
+        backgroundColor = .clear
         NSLayoutConstraint.activate([
             addVideoButton.widthAnchor.constraint(
                 equalToConstant: 170),
@@ -46,5 +46,12 @@ class ButtonCell: UITableViewCell {
             addVideoButton.centerXAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.centerXAnchor)
         ])
+    }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            addVideoButton.setTitleColor(.black, for: .normal)
+        } else {
+            addVideoButton.setTitleColor(.white, for: .normal)
+        }
     }
 }

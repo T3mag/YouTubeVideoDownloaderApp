@@ -51,10 +51,6 @@ class SearchYouTubeView: UIView {
                            forCellReuseIdentifier: "isSearchingTableViewCell")
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.separatorColor = UIColor(red: 146/255,
-                                           green: 146/255,
-                                           blue: 154/255,
-                                           alpha: 1)
         return tableView
     }()
     lazy var textFieldSearchIconView: UIView = {
@@ -112,6 +108,15 @@ class SearchYouTubeView: UIView {
     func setupDataSource(dataSource: SearchYouTubeDataSource) {
         searchVideosTablewView.delegate = dataSource
         searchVideosTablewView.dataSource = dataSource
+    }
+    func setupTheme(isBlack: Bool) {
+        if isBlack {
+            backgroundColor = .black
+            self.reloadInputViews()
+        } else {
+            backgroundColor = .white
+            self.reloadInputViews()
+        }
     }
 }
 extension SearchYouTubeView: AddNewVideo {

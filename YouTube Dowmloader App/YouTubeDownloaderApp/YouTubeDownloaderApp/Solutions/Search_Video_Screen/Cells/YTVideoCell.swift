@@ -42,7 +42,6 @@ class YTVideoCell: UITableViewCell {
         addSubview(videoTitleLabel)
         addSubview(videoPlayerImageView)
         addSubview(chanellTitleLabel)
-        backgroundColor = .black
         setupLayout()
     }
     func setupCell(videoImageURl: URL,
@@ -56,12 +55,23 @@ class YTVideoCell: UITableViewCell {
         let date = videDate.components(separatedBy: "T")
         videoDateLabel.text = date[0].replacingOccurrences(of: "-", with: ":")
     }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            videoTitleLabel.textColor = .white
+            videoDateLabel.textColor = .white
+            chanellTitleLabel.textColor = .white
+        } else {
+            videoTitleLabel.textColor = .black
+            videoDateLabel.textColor = .black
+            chanellTitleLabel.textColor = .black
+        }
+    }
     func setupLayout() {
         addSubview(videoTitleLabel)
         addSubview(videoPlayerImageView)
         addSubview(chanellTitleLabel)
         addSubview(videoDateLabel)
-        backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
+        backgroundColor = .clear
         layer.cornerRadius = 20
         NSLayoutConstraint.activate([
             videoPlayerImageView.heightAnchor.constraint(equalToConstant: (self.frame.width - 20) / 16 * 10),
@@ -80,11 +90,11 @@ class YTVideoCell: UITableViewCell {
             chanellTitleLabel.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             chanellTitleLabel.bottomAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+                equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
             videoDateLabel.topAnchor.constraint(
                 equalTo: videoTitleLabel.bottomAnchor, constant: 10),
             videoDateLabel.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10)
+                equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
     }
     required init?(coder: NSCoder) {

@@ -37,4 +37,11 @@ class IsSearchingCell: UITableViewCell {
         loadingSpinerView.stopAnimation()
         loadingSpinerView.removeFromSuperview()
     }
+    func setupColor(isBlack: Bool) {
+        if isBlack {
+            loadingSpinerView.setupColor(isBlack: isBlack)
+        } else {
+            loadingSpinerView.setupColor(isBlack: isBlack)
+        }
+    }
 }
