@@ -13,11 +13,13 @@ class VideoScreenView: UIView {
     private var videoPreviewURL: String?
     private var viewController: VideoScreenViewController?
     private var videoID: String?
+    
     lazy var videoPlayeView: YTPlayerView = {
         let ytPlayerView = YTPlayerView()
         ytPlayerView.translatesAutoresizingMaskIntoConstraints = false
         return ytPlayerView
     }()
+    
     lazy var videoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +28,7 @@ class VideoScreenView: UIView {
         label.numberOfLines = 3
         return label
     }()
+    
     lazy var videoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +36,7 @@ class VideoScreenView: UIView {
         label.textColor = .white
         return label
     }()
+    
     lazy var videoDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +45,7 @@ class VideoScreenView: UIView {
         label.numberOfLines = 100
         return label
     }()
+    
     lazy var chanelTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +53,7 @@ class VideoScreenView: UIView {
         label.textColor = .white
         return label
     }()
+    
     lazy var downloadVideoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -61,25 +67,30 @@ class VideoScreenView: UIView {
         button.addAction(action, for: .touchUpInside)
         return button
     }()
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
     lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupScrollView()
         setupLayout()
         setupSwipe()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupVideoInfo(videoInfo: VideoInfoFromIdentifier, videoPreviewUrl: String) {
         self.videoInfo = videoInfo
         self.videoPreviewURL = videoPreviewUrl
@@ -94,9 +105,11 @@ class VideoScreenView: UIView {
         self.reloadInputViews()
         self.videoID = videoInfo.items[0].id
     }
+    
     func setupController(viewController: VideoScreenViewController) {
         self.viewController = viewController
     }
+    
     func setupScrollView() {
         addSubview(scrollView)
         self.scrollView.addSubview(contentView)
@@ -116,6 +129,7 @@ class VideoScreenView: UIView {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
     }
+    
     func setupLayout() {
         addSubview(videoPlayeView)
         addSubview(videoTitleLabel)
@@ -158,11 +172,10 @@ class VideoScreenView: UIView {
             downloadVideoButton.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.5)
         ])
     }
+    
     func downloadButtonTap() {
-        self.viewController?.downloadButtonTap(videoID: videoID!,
-                                               videoTitle: videoTitleLabel.text!,
-                                               videoDate: videoDateLabel.text!,
-                                               videoPreviewUrl: videoPreviewURL!)
+        self.viewController?.downloadButtonTap(videoID: videoID!, videoTitle: videoTitleLabel.text!,
+                                               videoDate: videoDateLabel.text!, videoPreviewUrl: videoPreviewURL!)
     }
     func setupColor(isBlack: Bool) {
         if isBlack {
@@ -187,6 +200,7 @@ extension VideoScreenView {
         swipeRight.direction = .right
         addGestureRecognizer(swipeRight)
     }
+    
     @objc func dismisController() {
         viewController?.dismiss(animated: true)
     }

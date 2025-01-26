@@ -16,6 +16,7 @@ class DownloadsVideoDataSource: NSObject, UITableViewDelegate, UITableViewDataSo
     private var viewController: DownloadsVideoVC!
     private var cancelebels: Set<AnyCancellable> = []
     private var isBlack = true
+    
     init(viewController: DownloadsVideoVC) {
         super.init()
         self.viewController = viewController
@@ -23,12 +24,15 @@ class DownloadsVideoDataSource: NSObject, UITableViewDelegate, UITableViewDataSo
             self?.videos = videos
         }.store(in: &cancelebels)
     }
+    
     func setIsBlack(isBlack: Bool) {
         self.isBlack = isBlack
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let videoCell = tableView.dequeueReusableCell(
             withIdentifier: "videoCell",
@@ -38,6 +42,7 @@ class DownloadsVideoDataSource: NSObject, UITableViewDelegate, UITableViewDataSo
         videoCell.setupColor(isBlack: isBlack)
         return videoCell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let video = videos[indexPath.row]
         let baseUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -48,6 +53,7 @@ class DownloadsVideoDataSource: NSObject, UITableViewDelegate, UITableViewDataSo
         let player = AVPlayer(playerItem: playerItem)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
+        
         self.viewController.present(playerViewController, animated: true, completion: {
             player.play()
         })

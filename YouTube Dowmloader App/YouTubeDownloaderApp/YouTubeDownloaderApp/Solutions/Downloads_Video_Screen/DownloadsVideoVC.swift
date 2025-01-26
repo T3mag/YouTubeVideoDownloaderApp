@@ -14,7 +14,9 @@ class DownloadsVideoVC: UIViewController {
     private var cancelebels: Set<AnyCancellable> = []
     private var dataSource: DownloadsVideoDataSource!
     private var settingsVC: SettingsViewController?
+    
     @Published var videos: [Video] = []
+    
     init(downloadsVideoViewModel: DownloadsVideoVM) {
         super.init(nibName: nil, bundle: nil)
         viewModel = downloadsVideoViewModel
@@ -22,28 +24,34 @@ class DownloadsVideoVC: UIViewController {
         myView.setupDataSourse(dataSource: dataSource)
         setupBindings()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func loadView() {
         view = myView
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         setupNavBar()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.updateData()
         myView.reloadTableView()
     }
+    
     func setupBindings() {
         viewModel.$downloadsVideo.sink { [weak self] videos in
             self?.videos = videos
         }
         .store(in: &cancelebels)
     }
+    
     func setupNavBar() {
         let rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "gear"),
@@ -59,17 +67,21 @@ class DownloadsVideoVC: UIViewController {
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButton
     }
+    
     @objc func fbButtonPressed() {
         present(SettingsViewController.shared, animated: true)
     }
+    
     func deleteVideo(indexPath: IndexPath) {
         viewModel.deleteVideosFromDevice(indexPath: indexPath)
         viewModel.updateData()
         myView.reloadTableView()
     }
+    
     func setSetinngsVC(settingsVC: SettingsViewController) {
         self.settingsVC = settingsVC
     }
+    
     func setupTheme(isBlack: Bool) {
         if isBlack {
             navigationItem.rightBarButtonItem?.tintColor = .white

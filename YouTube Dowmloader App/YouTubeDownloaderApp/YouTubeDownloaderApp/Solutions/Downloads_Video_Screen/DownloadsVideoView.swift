@@ -20,13 +20,16 @@ class DownloadsVideoView: UIView {
         tableView.register(VideoCell.self, forCellReuseIdentifier: "videoCell")
         return tableView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
     }
+    
     func reloadTableView() {
         videoTableView.reloadData()
     }
+    
     func setupLayout() {
         addSubview(videoTableView)
         NSLayoutConstraint.activate([
@@ -36,13 +39,16 @@ class DownloadsVideoView: UIView {
             videoTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
+    
     func setupDataSourse(dataSource: DownloadsVideoDataSource) {
         videoTableView.dataSource = dataSource
         videoTableView.delegate = dataSource
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupTheme(isBlack: Bool) {
         if isBlack {
             backgroundColor = .black

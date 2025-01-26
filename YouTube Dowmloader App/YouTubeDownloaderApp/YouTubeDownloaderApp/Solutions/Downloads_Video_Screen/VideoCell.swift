@@ -15,6 +15,7 @@ class VideoCell: UITableViewCell {
         imageView.backgroundColor = .red
         return imageView
     }()
+    
     lazy var videoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +24,7 @@ class VideoCell: UITableViewCell {
         label.numberOfLines = 2
         return label
     }()
+    
     lazy var videoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,13 +32,16 @@ class VideoCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         return label
     }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupColor(isBlack: Bool) {
         if isBlack {
             videoTitleLabel.textColor = .white
@@ -46,6 +51,7 @@ class VideoCell: UITableViewCell {
             videoTitleLabel.textColor = .black
         }
     }
+    
     func setupVideoInfo(videoInfo: Video) {
         self.videoInfo = videoInfo
         videoTitleLabel.text = videoInfo.videoTitle

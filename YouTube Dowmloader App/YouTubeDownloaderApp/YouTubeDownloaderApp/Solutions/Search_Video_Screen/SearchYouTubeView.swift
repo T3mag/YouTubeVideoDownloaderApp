@@ -38,6 +38,7 @@ class SearchYouTubeView: UIView {
         textField.delegate = self
         return textField
     }()
+    
     lazy var searchVideosTablewView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +54,7 @@ class SearchYouTubeView: UIView {
         tableView.separatorStyle = .none
         return tableView
     }()
+    
     lazy var textFieldSearchIconView: UIView = {
         let findTextFieldImageView = UIImageView(frame: CGRect(x: 8.0,
                                                                y: 10.0,
@@ -71,13 +73,16 @@ class SearchYouTubeView: UIView {
         findTextFieldView.backgroundColor = .clear
         return findTextFieldView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupLayout() {
         addSubview(searchTextField)
         addSubview(searchVideosTablewView)
@@ -99,16 +104,20 @@ class SearchYouTubeView: UIView {
                 equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
+    
     func reloadData() {
         searchVideosTablewView.reloadData()
     }
+    
     func scrollFromindexPath(indexPath: IndexPath) {
         searchVideosTablewView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
+    
     func setupDataSource(dataSource: SearchYouTubeDataSource) {
         searchVideosTablewView.delegate = dataSource
         searchVideosTablewView.dataSource = dataSource
     }
+    
     func setupTheme(isBlack: Bool) {
         if isBlack {
             backgroundColor = .black
@@ -119,6 +128,7 @@ class SearchYouTubeView: UIView {
         }
     }
 }
+
 extension SearchYouTubeView: AddNewVideo {
     func addDataWithUserString(nextPageToken: String) {
         viewController.addDataWithUserString(nextPageToken: nextPageToken)

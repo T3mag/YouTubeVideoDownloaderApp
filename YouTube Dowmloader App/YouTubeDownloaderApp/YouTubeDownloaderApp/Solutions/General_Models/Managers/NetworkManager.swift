@@ -16,14 +16,18 @@ class MyNetworkManager {
     private var imageForDownload = UIImage()
     private var userRequestString: String?
     private var nextPageToken: String?
+    
     @Published var videos: [VideoInfoFromSearch.Video] = []
     @Published var videoInfo: VideoInfoFromIdentifier?
+    
     lazy var jsonDecoder: JSONDecoder = {
         JSONDecoder()
     }()
+    
     init(with configuration: URLSessionConfiguration) {
         session = URLSession(configuration: configuration)
     }
+    
     func getNewVideoByString(userString: String) async throws -> VideoInfoFromSearch {
         userRequestString = userString
         let mainDataForRequest = "https://youtube.googleapis.com/youtube/v3/search?part=snippet"
@@ -37,6 +41,7 @@ class MyNetworkManager {
         let responseData = try await session.data(for: urlRequset)
         return try jsonDecoder.decode(VideoInfoFromSearch.self, from: responseData.0)
     }
+    
     func getAdditionalVidepByToken(nextPageToken: String) async throws -> VideoInfoFromSearch {
         let mainDataForRequest = "https://youtube.googleapis.com/youtube/v3/search?part=snippet"
         let oneAdditionalDataForRequest = "&maxResults=\(25)&pageToken=" + nextPageToken
@@ -50,6 +55,7 @@ class MyNetworkManager {
         let responseData = try await session.data(for: urlRequset)
         return try jsonDecoder.decode(VideoInfoFromSearch.self, from: responseData.0)
     }
+    
     func getVideoInfoById(videoId: String) async throws -> VideoInfoFromIdentifier {
         let mainStringResponse = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet"
         let additionalStringResponse = "&id=\(videoId)&key=\(apiKey)"
@@ -62,6 +68,7 @@ class MyNetworkManager {
         let responseData = try await session.data(for: urlRequset)
         return try jsonDecoder.decode(VideoInfoFromIdentifier.self, from: responseData.0)
     }
+    
     func obtainVideoInfoByID(videoId: String) {
         videoInfo = nil
         Task {
@@ -73,6 +80,7 @@ class MyNetworkManager {
             }
         }
     }
+    
     func obtainNewDataWithUserString(userString: String) {
         Task {
             do {
@@ -87,6 +95,7 @@ class MyNetworkManager {
             }
         }
     }
+    
     func addDataWithUserString(nextPageToken: String) {
         Task {
             do {
@@ -101,14 +110,17 @@ class MyNetworkManager {
         }
     }
 }
+
 extension MyNetworkManager {
     func getPageToken() -> String {
         return nextPageToken ?? ""
     }
+    
     func obtainDownloadImage(imageUrl: URL) -> UIImage {
         loadVideoImageForCell(url: imageUrl)
         return imageForDownload
     }
+    
     func loadVideoImageForCell(url: URL) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {

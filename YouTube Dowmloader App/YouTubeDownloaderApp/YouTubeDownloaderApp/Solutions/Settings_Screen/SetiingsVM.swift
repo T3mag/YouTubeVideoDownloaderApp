@@ -9,6 +9,7 @@ import Foundation
 
 class SetiingsViewModel {
     private var tabBarController = TabBarController.shared
+    
     func changeColor(isBlack: Bool) {
         tabBarController.setupColor(isBlack: isBlack)
     }

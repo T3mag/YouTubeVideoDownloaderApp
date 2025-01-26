@@ -11,6 +11,7 @@ class VideoScreenViewController: UIViewController {
     let myView = VideoScreenView(frame: .zero)
     var viewModel: VideoScreenViewModel!
     private var videoPreviewUrl: String?
+    
     init(viewModel: VideoScreenViewModel, indexPath: IndexPath, videoPrevieePath: String) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -22,16 +23,20 @@ class VideoScreenViewController: UIViewController {
                                      userInfo: nil,
                                      repeats: false)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func loadView() {
         self.view = myView
         myView.setupController(viewController: self)
     }
+    
     func obtainVideoInfo(indexPath: IndexPath) {
         viewModel.obtainVideoInfoById(indexPath: indexPath)
     }
+    
     func downloadButtonTap(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
         viewModel.downloadButtonTap(videoID: videoID,
                                     videoTitle: videoTitle,
@@ -39,10 +44,12 @@ class VideoScreenViewController: UIViewController {
                                     videoPreviewUrl: videoPreviewUrl)
         dismiss(animated: true)
     }
+    
     @objc func updateTimer() {
         myView.setupVideoInfo(videoInfo: viewModel.getVideoInfo(),
                               videoPreviewUrl: videoPreviewUrl!)
     }
+    
     func setupTheme(isBlack: Bool) {
         myView.setupColor(isBlack: isBlack)
     }

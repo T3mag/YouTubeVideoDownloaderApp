@@ -12,9 +12,11 @@ import Combine
 class CoreDataManager {
     static let shared = CoreDataManager()
     init () {}
+    
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "VideoCoreData")
         container.loadPersistentStores(completionHandler: {( _, error) in
@@ -24,6 +26,7 @@ class CoreDataManager {
         })
         return container
     }()
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -35,6 +38,7 @@ class CoreDataManager {
             }
         }
     }
+    
     func obtaineSaveVideo() -> [Video] {
         let videoFetchRequest = Video.fetchRequest()
         let sortDescriptors = NSSortDescriptor(key: "videoTitle", ascending: true)
@@ -42,11 +46,9 @@ class CoreDataManager {
         let result = try? viewContext.fetch(videoFetchRequest)
         return result ?? []
     }
-    func addVideoInfo(videoID: String,
-                      videoPath: String,
-                      videoTitle: String,
-                      videoDate: String,
-                      videoPreviePath: String) {
+    
+    func addVideoInfo(videoID: String, videoPath: String, videoTitle: String,
+                      videoDate: String, videoPreviePath: String) {
         let video = Video(context: viewContext)
         video.videoId = videoID
         video.date = videoDate

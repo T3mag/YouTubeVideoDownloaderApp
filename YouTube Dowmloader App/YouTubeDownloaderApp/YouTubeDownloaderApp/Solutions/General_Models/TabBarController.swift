@@ -16,6 +16,7 @@ class TabBarController: UITabBarController {
     private var searchYouTubeVM = SearchYouTubeVM()
     private var downloadsVideoVM = DownloadsVideoVM()
     private var isBlack = false
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         uRLDownloadsVC = URLDownloadVC(viewModel: URLDownloadVideoVM)
@@ -23,9 +24,11 @@ class TabBarController: UITabBarController {
         downloadsVideoVC = DownloadsVideoVC(downloadsVideoViewModel: downloadsVideoVM)
         setupTabBar()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupTabBar() {
         uRLDownloadsVC.tabBarItem.title = "Скачать по URL"
         uRLDownloadsVC.tabBarItem.image = UIImage(systemName: "arrow.down.circle")
@@ -41,15 +44,18 @@ class TabBarController: UITabBarController {
             UINavigationController(rootViewController: downloadsVideoVC)
         ]
     }
+    
     func setupURLDownloadVC(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
         uRLDownloadsVC.setupYouTubeData(videoID: videoID,
                                         videoTitle: videoTitle,
                                         videDate: videoDate,
                                         videoPreviewUrl: videoPreviewUrl)
     }
+    
     func setupButtonTitle(title: String) {
         uRLDownloadsVC.setupButtonTitle(title: title)
     }
+    
     func setupColor(isBlack: Bool) {
         if isBlack {
             self.tabBar.tintColor = .white

@@ -16,6 +16,7 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
     private var isSearching: Bool = false
     private var indexPath: IndexPath?
     private var isBlack = true
+    
     init(searchYouTubeVideVC: SearchYouTubeVC) {
         super.init()
         self.viewController = searchYouTubeVideVC
@@ -30,9 +31,11 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
             }
             .store(in: &cancelebels)
     }
+    
     func setupIsBlack(isBlack: Bool) {
         self.isBlack = isBlack
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
             return 1
@@ -40,6 +43,7 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
             return videos.count + 1
         }
     }
+    
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let isSearchinfCell = tableView.dequeueReusableCell(
@@ -55,10 +59,12 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
         guard let noneVideoCell = tableView.dequeueReusableCell(
             withIdentifier: "noneVideoTableViewCell",
             for: indexPath) as? NoneVideoInfoCell else { fatalError() }
+        
         isSearchinfCell.setupColor(isBlack: isBlack)
         videoCell.setupColor(isBlack: isBlack)
         buttonCell.setupColor(isBlack: isBlack)
         noneVideoCell.setupColor(isBlack: isBlack)
+        
         if isSearching && videos.count <= 1 {
             isSearchinfCell.activateSpiner()
             return isSearchinfCell
@@ -82,11 +88,13 @@ class SearchYouTubeDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
             return videoCell
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let video: VideoInfoFromSearch.Video = videos[indexPath.row]
         viewController.presentVideoInfoScreen(indexPath: indexPath,
                                               videoPreViewURL: video.snippet.thumbnails.default.url)
     }
+    
     func getIndexPath() -> IndexPath {
         return self.indexPath ?? IndexPath()
     }

@@ -16,8 +16,10 @@ class SearchYouTubeVC: UIViewController {
     private var timer = Timer()
     private var settingsVC: SettingsViewController?
     private var isBlack = true
+    
     @Published var videos: [VideoInfoFromSearch.Video] = []
     @Published var isSearching: Bool = false
+    
     init(searchScreenViewModel: SearchYouTubeVM) {
         super.init(nibName: nil, bundle: nil)
         viewModel = searchScreenViewModel
@@ -64,9 +66,11 @@ extension SearchYouTubeVC {
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButton
     }
+    
     @objc func fbButtonPressed() {
         present(SettingsViewController.shared, animated: true)
     }
+    
     func obtainNewDataWithUserString(userString: String) {
         var timerLeft = 30
         isSearching = true
@@ -86,6 +90,7 @@ extension SearchYouTubeVC {
             }
         }
     }
+    
     func addDataWithUserString(nextPageToken: String) {
         var timerLeft = 30
         isSearching = true
@@ -106,24 +111,30 @@ extension SearchYouTubeVC {
             }
         }
     }
+    
     func scrollTableView() {
         searchYouTubeView.scrollFromindexPath(indexPath: searchYouTubeVideoTableViewDataSource.getIndexPath())
     }
+    
     func obtainImageForUrl(imageUrl: URL) -> UIImage {
         return viewModel.obtainImageForUrl(imageUrl: imageUrl)
     }
+    
     func getNextPageToken() -> String {
         return viewModel.getNextPageToken()
     }
+    
     func scrollFromIndexPath(indexPath: IndexPath) {
         searchYouTubeView.scrollFromindexPath(indexPath: indexPath)
     }
+    
     @objc func updateTimer() {
         if viewModel.getCountVideos() != 0 {
             timer.invalidate()
             searchYouTubeView.reloadData()
         }
     }
+    
     func setupBindings() {
         viewModel.$videos
             .sink { [weak self] videos in
@@ -131,9 +142,11 @@ extension SearchYouTubeVC {
             }
             .store(in: &cancelebels)
     }
+    
     func setSetinngsVC(settingsVC: SettingsViewController) {
         self.settingsVC = settingsVC
     }
+    
     func setupTheme(isBlack: Bool) {
         self.isBlack = isBlack
         if isBlack {

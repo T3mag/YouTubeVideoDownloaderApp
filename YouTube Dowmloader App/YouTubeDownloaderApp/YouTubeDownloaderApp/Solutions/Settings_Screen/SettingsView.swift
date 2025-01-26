@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsView: UIView {
     var viewController: SettingsViewController?
+    
     lazy var settingsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +18,7 @@ class SettingsView: UIView {
         label.textColor = .white
         return label
     }()
+    
     lazy var themeSetupLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,6 +27,7 @@ class SettingsView: UIView {
         label.textColor = .white
         return label
     }()
+    
     lazy var themeSetupSwitch: UISwitch = {
         let mySwitch = UISwitch()
         mySwitch.translatesAutoresizingMaskIntoConstraints = false
@@ -36,14 +39,17 @@ class SettingsView: UIView {
         mySwitch.addAction(action, for: .touchUpInside)
         return mySwitch
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
         setupSwipe()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupLayout() {
         backgroundColor = .black
         addSubview(settingsLabel)
@@ -64,6 +70,7 @@ class SettingsView: UIView {
                 equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
+    
     func changeBackgroundColor() {
         if themeSetupSwitch.isOn {
             UIView.animate(withDuration: 1.0, delay: 0.0, options: [], animations: {
@@ -81,11 +88,13 @@ class SettingsView: UIView {
             })
         }
     }
+    
     func setupSwipe() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.dismisController))
         swipeRight.direction = .right
         addGestureRecognizer(swipeRight)
     }
+    
     @objc func dismisController() {
         viewController?.dismiss(animated: true)
     }

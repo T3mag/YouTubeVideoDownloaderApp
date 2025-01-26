@@ -14,9 +14,11 @@ class MyFileManager {
     private var coreDataManager = CoreDataManager.shared
     private let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     private var isDownloading = false
+    
     init(with configuration: URLSessionConfiguration) {
         session = URLSession(configuration: configuration)
     }
+    
     func removeImageFromDirectory(imageName: String) {
         let docName = "\(imageName.utf8).jpg"
         let destinationUrl = documentDirectory.appendingPathComponent(docName)
@@ -28,6 +30,7 @@ class MyFileManager {
             print("Error deleting file: \(error)")
         }
     }
+    
     func removeVideoFromDirectory(videoName: String) {
         let docName = "\(videoName.utf8).mp4"
         let destinationUrl = documentDirectory.appendingPathComponent(docName)
@@ -39,6 +42,7 @@ class MyFileManager {
             print("Error deleting file: \(error)")
         }
     }
+    
     func getAllTmpFilesList() -> [URL] {
         do {
             let directoryContents = try FileManager.default.contentsOfDirectory(
@@ -51,18 +55,15 @@ class MyFileManager {
         }
         return [URL]()
     }
-    func downloadAndWriteImageInData(videoPreviewURL: String,
-                                     videoName: String,
-                                     videoDate: String,
-                                     videoID: String,
-                                     videoPath: String) {
+    
+    func downloadAndWriteImageInData(videoPreviewURL: String, videoName: String, videoDate: String,
+                                     videoID: String, videoPath: String) {
         Task {
             do {
                 self.updateBuuton(text: "Запуск работы с превью")
                 let docName = "\(videoName.utf8).jpg"
                 let destinationUrl = documentDirectory.appendingPathComponent(docName)
                 if FileManager().fileExists(atPath: destinationUrl.path) {
-                    print("Такое фото уже существует")
                     for counter in stride(from: 10, to: 0, by: 1) {
                         self.updateBuuton(text: "Такое фото уже существует, жди\(counter)")
                     }
@@ -73,36 +74,27 @@ class MyFileManager {
                     request.httpMethod = "GET"
                     session.dataTask(with: request, completionHandler: { (data, response, error) in
                         if error != nil {
-                            print("Произошла неизвестная ошибка")
                             for counter in stride(from: 10, to: 0, by: 1) {
                                 self.updateBuuton(text: "Ошибка, жди: \(counter)")
                             }
                             self.isDownloading = false
                             self.updateBuuton(text: "Скачать")
                         }
-                        print("Загрузка началась!")
                         self.updateBuuton(text: "Загрузка началась!")
                         if let response = response as? HTTPURLResponse {
                             if response.statusCode == 200 {
                                 DispatchQueue.main.async {
                                     if let data = data {
                                         if let _ = try? data.write(to: destinationUrl, options: Data.WritingOptions.atomic) {
-                                            print("Превью загружено в fileManager")
                                             self.updateBuuton(text: "Превью загружено")
-                                            self.coreDataManager.addVideoInfo(
-                                                videoID: videoID,
-                                                videoPath: videoPath,
-                                                videoTitle: videoName,
-                                                videoDate: videoDate,
-                                                videoPreviePath: destinationUrl.absoluteString)
-                                            print("Данные видео записано в Coredata")
+                                            self.coreDataManager.addVideoInfo(videoID: videoID, videoPath: videoPath, videoTitle: videoName,
+                                                videoDate: videoDate, videoPreviePath: destinationUrl.absoluteString)
                                             for counter in stride(from: 10, to: 0, by: 1) {
                                                 self.updateBuuton(text: "Данные записаны, подожди: \(counter)")
                                             }
                                             self.isDownloading = false
                                             self.updateBuuton(text: "Скачать")
                                         } else {
-                                            print("Ошибка, попробуй еще раз!")
                                             for counter in stride(from: 10, to: 0, by: 1) {
                                                 self.updateBuuton(text: "Ошибкаб жди: \(counter)")
                                             }
@@ -118,10 +110,7 @@ class MyFileManager {
             }
         }
     }
-    func downloadAndWriteVideoInData(videoID: String,
-                                     fileName: String,
-                                     fileDate: String,
-                                     videoPrevievURL: String) {
+    func downloadAndWriteVideoInData(videoID: String, fileName: String, fileDate: String, videoPrevievURL: String) {
         Task {
             if isDownloading {
                 return
@@ -134,14 +123,11 @@ class MyFileManager {
                     $0.includesVideoAndAudioTrack && $0.fileExtension == .mp4
                 }.highestResolutionStream()
                 let streamURL = stream?.url
-                print(streamURL!)
                 let videoUrl = streamURL?.absoluteString
                 let docName = "\(fileName.utf8).mp4"
                 let destinationUrl = documentDirectory.appendingPathComponent(docName)
                 self.updateBuuton(text: "Дириектория создана")
-                print(destinationUrl)
                 if FileManager().fileExists(atPath: destinationUrl.path) {
-                    print("Такое видео уже существует")
                     for counter in stride(from: 10, to: 0, by: 1) {
                         self.updateBuuton(text: "Такое видео уже существует, жди\(counter)")
                     }
@@ -152,14 +138,12 @@ class MyFileManager {
                     request.httpMethod = "GET"
                     session.dataTask(with: request, completionHandler: { (data, response, error) in
                         if error != nil {
-                            print("Произошла неизвестная ошибка")
                             for counter in stride(from: 10, to: 0, by: 1) {
                                 self.updateBuuton(text: "Ошибка, жди: \(counter)")
                             }
                             self.isDownloading = false
                             self.updateBuuton(text: "Скачать")
                         }
-                        print("Загрузка видео началась!")
                         self.updateBuuton(text: "Загрузка видео началась!")
                         if let response = response as? HTTPURLResponse {
                             if response.statusCode == 200 {
@@ -168,16 +152,9 @@ class MyFileManager {
                                         if (try? data.write(
                                             to: destinationUrl, options: Data.WritingOptions.atomic)) != nil {
                                                 self.updateBuuton(text: "Видео загружено")
-                                                print("Видео загружено в FileManager")
-                                                print("Запуск загрузки превью")
-                                                self.downloadAndWriteImageInData(
-                                                    videoPreviewURL: videoPrevievURL,
-                                                    videoName: fileName,
-                                                    videoDate: fileDate,
-                                                    videoID: videoID,
-                                                    videoPath: destinationUrl.absoluteString)
+                                                self.downloadAndWriteImageInData(videoPreviewURL: videoPrevievURL, videoName: fileName,
+                                                                                 videoDate: fileDate,videoID: videoID, videoPath: destinationUrl.absoluteString)
                                         } else {
-                                            print("Ошибка, попробуй еще раз!")
                                             for counter in stride(from: 10, to: 0, by: 1) {
                                                 self.updateBuuton(text: "Ошибкаб жди: \(counter)")
                                             }

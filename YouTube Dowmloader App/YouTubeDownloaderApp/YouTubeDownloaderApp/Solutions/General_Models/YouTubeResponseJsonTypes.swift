@@ -14,16 +14,19 @@ struct VideoInfoFromSearch: Codable {
     let regionCode: String?
     let pageInfo: PageInfo
     let items: [Video]
+    
     struct Thumbnails: Codable {
         let `default`: ImgInfo
         let medium: ImgInfo
         let high: ImgInfo
     }
+    
     struct ImgInfo: Codable {
         let url: String
         let width: Int?
         let height: Int?
     }
+    
     struct Snippet: Codable {
         let publishedAt: String
         let channelId: String
@@ -33,14 +36,17 @@ struct VideoInfoFromSearch: Codable {
         let channelTitle: String
         let publishTime: String
     }
+    
     struct PageInfo: Codable {
         let totalResults: Int
         let resultsPerPage: Int
     }
+    
     struct VideoId: Codable {
         let kind: String
         let videoId: String?
     }
+    
     struct Video: Codable {
         let kind: String
         let etag: String
@@ -51,10 +57,12 @@ struct VideoInfoFromSearch: Codable {
 
 struct VideoInfoFromIdentifier: Codable {
     let items: [VideoInfo]
+    
     struct VideoInfo: Codable {
         let id: String
         let snippet: Snippet
     }
+    
     struct Snippet: Codable {
         let publishedAt: String
         let channelId: String
@@ -64,14 +72,17 @@ struct VideoInfoFromIdentifier: Codable {
         let thumbnails: Thumbnails
         let localized: Localized
     }
+    
     struct Thumbnails: Codable {
         let `default`: ImgInfo
     }
+    
     struct ImgInfo: Codable {
         let url: String
         let width: Int?
         let height: Int?
     }
+    
     struct Localized: Codable {
         let title: String
         let description: String

@@ -15,6 +15,7 @@ class YTVideoCell: UITableViewCell {
         videoPlayer.translatesAutoresizingMaskIntoConstraints = false
         return videoPlayer
     }()
+    
     lazy var videoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +24,7 @@ class YTVideoCell: UITableViewCell {
         label.numberOfLines = 2
         return label
     }()
+    
     lazy var chanellTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +32,7 @@ class YTVideoCell: UITableViewCell {
         label.textColor = .white
         return label
     }()
+    
     lazy var videoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +40,7 @@ class YTVideoCell: UITableViewCell {
         label.textColor = .white
         return label
     }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(videoTitleLabel)
@@ -44,6 +48,7 @@ class YTVideoCell: UITableViewCell {
         addSubview(chanellTitleLabel)
         setupLayout()
     }
+    
     func setupCell(videoImageURl: URL,
                    videoTitle: String,
                    videoDescription: String,
@@ -55,6 +60,7 @@ class YTVideoCell: UITableViewCell {
         let date = videDate.components(separatedBy: "T")
         videoDateLabel.text = date[0].replacingOccurrences(of: "-", with: ":")
     }
+    
     func setupColor(isBlack: Bool) {
         if isBlack {
             videoTitleLabel.textColor = .white
@@ -66,6 +72,7 @@ class YTVideoCell: UITableViewCell {
             chanellTitleLabel.textColor = .black
         }
     }
+    
     func setupLayout() {
         addSubview(videoTitleLabel)
         addSubview(videoPlayerImageView)
@@ -97,9 +104,11 @@ class YTVideoCell: UITableViewCell {
                 equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func load(url: URL) {
             DispatchQueue.global().async { [weak self] in
                 if let data = try? Data(contentsOf: url) {
@@ -111,9 +120,9 @@ class YTVideoCell: UITableViewCell {
                 }
             }
         }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
 }

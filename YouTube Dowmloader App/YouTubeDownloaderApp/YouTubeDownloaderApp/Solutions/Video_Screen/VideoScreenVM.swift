@@ -14,6 +14,7 @@ class VideoScreenViewModel {
     private var videos: [VideoInfoFromSearch.Video] = []
     private var videoInfo: VideoInfoFromIdentifier?
     private var mainTabBarController: TabBarController = TabBarController.shared
+    
     init() {
         networkManager.$videos.sink { [weak self] videos in
             self?.videos = videos
@@ -23,18 +24,19 @@ class VideoScreenViewModel {
         }
         .store(in: &cancelebels)
     }
+    
     func obtainVideoInfoById(indexPath: IndexPath) {
         let videoId = videos[indexPath.row].id.videoId
         networkManager.obtainVideoInfoByID(videoId: videoId!)
     }
+    
     func getVideoInfo() -> VideoInfoFromIdentifier {
         return videoInfo!
     }
+    
     func downloadButtonTap(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
         mainTabBarController.selectedIndex = 0
-        mainTabBarController.setupURLDownloadVC(videoID: videoID,
-                                                videoTitle: videoTitle,
-                                                videoDate: videoDate,
-                                                videoPreviewUrl: videoPreviewUrl)
+        mainTabBarController.setupURLDownloadVC(videoID: videoID,videoTitle: videoTitle,
+                                                videoDate: videoDate, videoPreviewUrl: videoPreviewUrl)
     }
 }

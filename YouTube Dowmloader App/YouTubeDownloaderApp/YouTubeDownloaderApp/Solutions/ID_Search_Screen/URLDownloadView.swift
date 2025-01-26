@@ -14,10 +14,12 @@ class URLDownloadView: UIView {
     private var videoDate: String?
     private var videoID: String?
     private var videoPreviewUrl: String?
+    
     lazy var loadingSpinerView: CustomSpinerSimpleView = {
         let spiner = CustomSpinerSimpleView(squareLength: 30)
         return spiner
     }()
+    
     lazy var headingLabel: UILabel = {
         let label = UILabel()
         label.text = "С подключнием, Username"
@@ -27,6 +29,7 @@ class URLDownloadView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Добро пожаловать в приложение для поиска и скачивания видео c YouTube!" +
@@ -39,6 +42,7 @@ class URLDownloadView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     lazy var errorLabel: UILabel = {
         let label = UILabel()
         label.text = "Ничего не найдено! Введите другой запрос или проверьте интернет соединение"
@@ -49,6 +53,7 @@ class URLDownloadView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     lazy var urlSearchTextField: UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
@@ -66,12 +71,14 @@ class URLDownloadView: UIView {
         textField.delegate = self
         return textField
     }()
+    
     lazy var videoView: YTPlayerView = {
         var view = YTPlayerView()
         view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     lazy var videoTextLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -81,6 +88,7 @@ class URLDownloadView: UIView {
         label.numberOfLines = 3
         return label
     }()
+    
     lazy var textFieldSearchIconView: UIView = {
         let findTextFieldImageView = UIImageView(frame: CGRect(x: 8.0, y: 10.0, width: 20.0, height: 20.0))
         let image = UIImage(systemName: "magnifyingglass")
@@ -93,6 +101,7 @@ class URLDownloadView: UIView {
         findTextFieldView.backgroundColor = .clear
         return findTextFieldView
     }()
+    
     lazy var downloadButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
@@ -106,13 +115,16 @@ class URLDownloadView: UIView {
         button.addAction(action, for: .touchUpInside)
         return button
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupData(videoID: String, videoTitle: String, videoDate: String, videoPreviewUrl: String) {
         videoView.load(withVideoId: videoID)
         videoTextLabel.text = videoTitle
@@ -122,9 +134,11 @@ class URLDownloadView: UIView {
         self.videoPreviewUrl = videoPreviewUrl
         reloadInputViews()
     }
+    
     func setupViewController(viewController: URLDownloadVC) {
         self.viewController = viewController
     }
+    
     func setupLayout() {
         addSubview(headingLabel)
         addSubview(subtitleLabel)
@@ -149,6 +163,7 @@ class URLDownloadView: UIView {
             urlSearchTextField.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    
     func setupLayoutIfHaveData() {
         loadingSpinerView.removeFromSuperview()
         addSubview(videoView)
@@ -172,6 +187,7 @@ class URLDownloadView: UIView {
             downloadButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
         ])
     }
+    
     func setupLayoutWhileSearching() {
         videoView.removeFromSuperview()
         videoTextLabel.removeFromSuperview()
@@ -184,20 +200,24 @@ class URLDownloadView: UIView {
                                          height: 30)
         activateSpiner()
     }
+    
     func downloadVideo() {
         self.viewController?.downloadVideo(videoId: self.videoID!,
                                             videoTitle: self.videoName!,
                                            videoDate: self.videoDate!,
                                            videoPreviewURL: videoPreviewUrl!)
     }
+    
     func activateSpiner() {
         setupLayout()
         loadingSpinerView.startAnimation(delay: 0.04, replicates: 12)
     }
+    
     func disActiveteSpinner() {
         loadingSpinerView.stopAnimation()
         loadingSpinerView.removeFromSuperview()
     }
+    
     func setupLayouIfNotHaveData() {
         addSubview(errorLabel)
         loadingSpinerView.removeFromSuperview()
@@ -210,11 +230,13 @@ class URLDownloadView: UIView {
                 equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
     }
+    
     func setupTitle(title: String) {
         DispatchQueue.main.async {
             self.downloadButton.setTitle(title, for: .normal)
         }
     }
+    
     func setupTheme(isBlack: Bool) {
         if isBlack {
             headingLabel.textColor = .white
